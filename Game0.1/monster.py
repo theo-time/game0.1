@@ -1,10 +1,12 @@
 import pygame
 import random
-class Monster(pygame.sprite.Sprite):
+from base_object import Base_Object
 
-    def __init__(self, game):
-        super().__init__()
-        self.game = game
+class Monster(Base_Object):
+
+    def __init__(self, game, screen):
+        super().__init__(game, screen)
+
         self.health = 100
         self.max_health = 100
         self.attack = 0.5
@@ -14,6 +16,7 @@ class Monster(pygame.sprite.Sprite):
         self.rect.x = 1000 + random.randint(0, 300)
         self.rect.y = 450 + random.randint(-10, 100)
         self.velocity = random.randint(1, 4)
+        self.direction = 1
 
     def Damage(self, amount):
         #infliger les dégats

@@ -1,4 +1,5 @@
 import pygame
+import sys
 
 from game import Game
 
@@ -6,6 +7,7 @@ from box import Box
 
 pygame.init()
 
+font = pygame.font.Font(None, 30)
 clock = pygame.time.Clock()
 
 # this has been committed
@@ -58,6 +60,12 @@ while running:
         #declencher les instructions de la partie
         game.Update(screen)
 
+        # Handling and displaying time
+        clock.tick(40)
+        fps = font.render(str(int(clock.get_fps())), True, pygame.Color('white'))
+        screen.blit(fps, (50, 50))
+        game.time += 1
+
     #verifier si le jeu n'a pas commencé puis ajouter l'ecran de bienvenu
     else:
         screen.blit(banner, banner_rect)
@@ -96,8 +104,9 @@ while running:
                 #mettre le jeu en mode run
                 game.start()
 
-    clock.tick(40)
-    game.time += 1
+
+
+
 
 
 def bloque_sur_collision(old_pos, new_pos, vx, vy, blocks):

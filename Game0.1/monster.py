@@ -17,6 +17,8 @@ class Monster(Base_Object):
         self.direction = 1
         self.spawn()
 
+
+
     def Damage(self, amount):
         #infliger les dégats
         self.health -= amount

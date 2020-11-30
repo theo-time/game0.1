@@ -31,6 +31,10 @@ class Game:
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
+        self.spawn_monster()
+        self.spawn_monster()
+        self.spawn_monster()
+
 
     def game_over(self):
         #remise à 0

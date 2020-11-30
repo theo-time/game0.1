@@ -13,10 +13,9 @@ class Monster(Base_Object):
         self.image = pygame.image.load("assets/mechant.png")
         self.image = pygame.transform.scale(self.image, (90, 90))
         self.rect = self.image.get_rect()
-        self.rect.x = 1000 + random.randint(0, 300)
-        self.rect.y = 450 + random.randint(-10, 100)
         self.velocity = random.randint(1, 4)
         self.direction = 1
+        self.spawn()
 
     def Damage(self, amount):
         #infliger les dégats
@@ -26,10 +25,13 @@ class Monster(Base_Object):
 
         if self.health <= 0:
             #On ne le supprime pas, on le fait respawn
-            self.rect.x = 1000 + random.randint(0, 300)
-            self.rect.y = 450 + random.randint(-10, 100)
-            self.velocity = random.randint(1, 4)
-            self.health = self.max_health
+            self.spawn()
+
+    def spawn(self):
+        self.rect.x = 1200
+        self.rect.y = self.screen.get_height() - 400
+        self.velocity = random.randint(1, 4)
+        self.health = self.max_health
 
     def Update_Health_Bar(self, surface):
 

@@ -8,6 +8,8 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
+# this has been committed
+
 #Fenetre menu principal
 pygame.display.set_caption("PaulGame")
 screen = pygame.display.set_mode((1080, 720))

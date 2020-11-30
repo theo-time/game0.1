@@ -46,7 +46,6 @@ class Player(Base_Object):
         #if not self.game.Check_Collision(self, self.game.all_monster):
         #self.rect.x += self.velocity
         self.acc.x = (self.velocity - self.speed.x)
-        print(self.speed.x ,self.velocity)
         self.direction = 1
         self.image = self.image_right
 
@@ -55,7 +54,6 @@ class Player(Base_Object):
         #self.rect.x -= self.velocity
         self.acc.x = ( -self.velocity - self.speed.x)
         self.direction = -1
-        print(self.acc.x ,self.speed.x ,-self.velocity)
         self.image = pygame.transform.flip(self.image, True, False)
         self.image = self.image_left
 

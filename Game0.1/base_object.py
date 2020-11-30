@@ -68,12 +68,12 @@ class Base_Object(pygame.sprite.Sprite):
 
         self.onGround = redirection[4]
 
-        print("*******************")
-        print("POS :",self.rect.x,self.rect.y)
-        print("SPEED :",self.speed.x,self.speed.y)
-        print("ACC :",self.acc.x,self.acc.y)
-        print("OnGround : ", self.onGround)
-        print("*******************")
+        #print("*******************")
+        #print("POS :",self.rect.x,self.rect.y)
+        #print("SPEED :",self.speed.x,self.speed.y)
+        #print("ACC :",self.acc.x,self.acc.y)
+        #print("OnGround : ", self.onGround)
+        #print("*******************")
 
         # Reset acceleration
         self.acc.x = 0

@@ -61,7 +61,7 @@ while running:
         game.Update(screen)
 
         # Handling and displaying time
-        clock.tick(40)
+        clock.tick(30)
         fps = font.render(str(int(clock.get_fps())), True, pygame.Color('white'))
         screen.blit(fps, (50, 50))
         game.time += 1

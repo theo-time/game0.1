@@ -18,6 +18,24 @@ class Monster(Base_Object):
         self.spawn()
 
 
+        self.walkLeft = [pygame.image.load('assets/Zombie/Zombie1/animation/Walk1.png'),
+                          pygame.image.load('assets/Zombie/Zombie1/animation/Walk2.png'),
+                          pygame.image.load('assets/Zombie/Zombie1/animation/Walk3.png'),
+                          pygame.image.load('assets/Zombie/Zombie1/animation/Walk4.png'),
+                          pygame.image.load('assets/Zombie/Zombie1/animation/Walk5.png'),
+                          pygame.image.load('assets/Zombie/Zombie1/animation/Walk6.png')]
+
+        self.walkRight = [0,0,0,0,0,0]
+        for i in range(0,6):
+            self.walkRight[i] = pygame.transform.flip(self.walkLeft[i], True, False)
+
+        self.char = pygame.image.load('assets/Zombie/Zombie1/animation/Idle1.png')
+
+        for i in range(0,6):
+            #self.walkLeft[i] = pygame.transform.scale(self.walkLeft[i], (self.rect.width, self.rect.height))
+            self.walkLeft[i] = pygame.transform.rotozoom(self.walkLeft[i], 0, 0.3)
+            self.walkRight[i] = pygame.transform.rotozoom(self.walkRight[i], 0, 0.3)
+            #self.walkRight[i] = pygame.transform.scale(self.walkRight[i], (self.rect.width, self.rect.height))
 
     def Damage(self, amount):
         #infliger les dégats
@@ -31,7 +49,7 @@ class Monster(Base_Object):
 
     def spawn(self):
         self.rect.x = 1200
-        self.rect.y = self.screen.get_height() - 400
+        self.rect.y = self.screen.get_height() - 450
         self.velocity = random.randint(1, 4)
         self.health = self.max_health
 
@@ -50,3 +68,28 @@ class Monster(Base_Object):
         else:
         # on inflige les dégats au joueur
             self.game.player.Damage(self.attack)
+
+
+    def show(self):
+        # We have 6 images for our walking animation, I want to show the same image for 3 frames
+        # so I use the number 18 as an upper bound for walkCount  images shown
+        # 3 times each animation.
+        if self.speed.x < 0:
+            self.direction = -1;
+        else:
+            self.direction = 1
+
+        if self.game.walkCount + 1 >= 180:
+            self.game.walkCount = 0
+
+        if self.direction == -1:  # If we are facing left
+            print(self.game.walkCount, self.game.walkCount // 30)
+            self.screen.blit(self.walkLeft[self.game.walkCount // 30], (self.rect.x, self.rect.y))  # We integer divide walkCount by 3 to ensure each
+            self.game.walkCount += 1  # image is shown 3 times every animation
+        elif self.direction == 1:
+            print(self.game.walkCount,self.game.walkCount // 30)
+            self.screen.blit(self.walkRight[self.game.walkCount // 30], (self.rect.x, self.rect.y))
+            self.game.walkCount += 1
+        #else:
+            #self.screen.blit(self.char, (x, y))  # If the character is standing still
+

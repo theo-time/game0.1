@@ -23,7 +23,7 @@ class Game:
 
 
         self.pressed = {}
-
+        self.walkCount = 0
         self.time = 0
 
     def start(self):
@@ -52,7 +52,7 @@ class Game:
         # recuperer les projectiles du joueur
         for Projectile in self.player.all_projectiles:
             Projectile.Move()
-        print("projectiles length : ", len(self.player.all_projectiles))
+        #print("projectiles length : ", len(self.player.all_projectiles))
         # recupérer les monstres de notre jeu
         for monster in self.all_monster:
             monster.forward()
@@ -62,7 +62,8 @@ class Game:
         self.player.all_projectiles.draw(screen)
 
         # appliquer l'ensemble des images de mon grp de monstre
-        self.all_monster.draw(screen)
+        for monster in self.all_monster:
+            monster.show()
 
         self.player.move()
         self.player.lauch_projectile()

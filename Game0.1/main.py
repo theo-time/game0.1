@@ -15,18 +15,7 @@ screen = pygame.display.set_mode((1080, 720))
 #import du bg
 background = pygame.image.load('assets/background.jpg')
 
-#import de la bannière
-banner = pygame.image.load('assets/realbanner.png')
-banner = pygame.transform.scale(banner,(600, 300))
-banner_rect = banner.get_rect()
-banner_rect.x = screen.get_width() / 4
 
-#import charger notre bouton pour lancer la partie
-play_button = pygame.image.load('assets/button.png')
-play_button = pygame.transform.scale(play_button, (400, 150))
-play_button_rect = play_button.get_rect()
-play_button_rect.x = screen.get_width() / 3
-play_button_rect.y = screen.get_width() / 3.9
 
 #redimensionnement de l'image
 background = pygame.transform.scale(background,(1200,800))

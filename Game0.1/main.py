@@ -47,6 +47,10 @@ running = True
 
 
 
+def Text(text, x, y):
+    msg = font.render(text, True, pygame.Color('white'))
+    screen.blit(msg, (x, y))
+
 #Boucle tant running = vrai
 while running:
     #appliquer Bg du jeu
@@ -66,8 +70,11 @@ while running:
         screen.blit(fps, (50, 50))
         game.time += 1
 
-        kills = font.render(str(game.player.kills), True, pygame.Color('white'))
-        screen.blit(kills,(50,100))
+        # Kills display
+        Text(str(game.player.kills), 50, 150)
+
+        # Projectiles length display
+        Text(str(game.player.all_projectiles), 50, 150)
 
     #verifier si le jeu n'a pas commencé puis ajouter l'ecran de bienvenu
     else:

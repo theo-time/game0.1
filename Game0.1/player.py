@@ -94,3 +94,5 @@ class Player(Base_Object):
         else:
             return False
 
+    def show(self):
+        self.screen.blit(self.image, ( self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))

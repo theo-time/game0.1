@@ -7,7 +7,8 @@ class Projectile(pygame.sprite.Sprite):
    #Realisation du constructeur de la class
     def __init__(self, player, direction):
         super().__init__()
-        self.velocity = direction * 9
+        self.speed = 50
+        self.velocity = direction * self.speed
         self.player = player
         self.image = pygame.image.load("assets/cheese.png")
         self.image = pygame.transform.scale(self.image, (40, 40))
@@ -41,6 +42,6 @@ class Projectile(pygame.sprite.Sprite):
             monster.Damage(self.player.attack, self.player)
 
         #verifier et suppr si notre projectile n'est plus présent sur l'ecran
-        if self.rect.x > 1080:
+        if self.rect.x > 1080 or self.rect.x < 0:
             self.Remove()
 

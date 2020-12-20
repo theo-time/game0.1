@@ -7,6 +7,11 @@ from monster import Monster
 class Game:
 
     def __init__(self, screen):
+
+        # Caméra
+        self.cameraX = 0
+        self.cameraY = 0
+
         #definir si le jeu a commencé ou non
         self.is_playing = False
         self.all_objects = []
@@ -44,7 +49,7 @@ class Game:
 
     def Update(self, screen):
         # appliquer image joueur
-        screen.blit(self.player.image, self.player.rect)
+        self.player.show()
 
         # actualiser la barre de vie du joueur
         self.player.Update_Health_Bar(screen)

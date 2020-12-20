@@ -25,6 +25,9 @@ class Player(Base_Object):
         self.all_projectiles = pygame.sprite.Group()
         self.isFiring = False
 
+        # Stats
+        self.kills = 0
+
 
     def Damage(self, amount):
         if self.health - amount > amount:

@@ -37,7 +37,7 @@ class Monster(Base_Object):
             self.walkRight[i] = pygame.transform.rotozoom(self.walkRight[i], 0, 0.3)
             #self.walkRight[i] = pygame.transform.scale(self.walkRight[i], (self.rect.width, self.rect.height))
 
-    def Damage(self, amount):
+    def Damage(self, amount, player):
         #infliger les dégats
         self.health -= amount
 
@@ -46,6 +46,7 @@ class Monster(Base_Object):
         if self.health <= 0:
             #On ne le supprime pas, on le fait respawn
             self.spawn()
+            player.kills += 1
 
     def spawn(self):
         self.rect.x = 1200

@@ -2,6 +2,7 @@ import pygame
 
 class Base_Object(pygame.sprite.Sprite):
 
+
     def __init__(self, game, screen):
         super().__init__()
         game.all_objects.append(self)

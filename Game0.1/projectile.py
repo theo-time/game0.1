@@ -38,7 +38,7 @@ class Projectile(pygame.sprite.Sprite):
         for monster in self.player.game.Check_Collision(self, self.player.game.all_monster):
             self.Remove()
             #infliger degats
-            monster.Damage(self.player.attack)
+            monster.Damage(self.player.attack, self.player)
 
         #verifier et suppr si notre projectile n'est plus présent sur l'ecran
         if self.rect.x > 1080:

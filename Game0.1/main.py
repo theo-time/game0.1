@@ -66,6 +66,9 @@ while running:
         screen.blit(fps, (50, 50))
         game.time += 1
 
+        kills = font.render(str(game.player.kills), True, pygame.Color('white'))
+        screen.blit(kills,(50,100))
+
     #verifier si le jeu n'a pas commencé puis ajouter l'ecran de bienvenu
     else:
         screen.blit(banner, banner_rect)

@@ -33,13 +33,14 @@ class Game:
 
     def start(self):
         self.is_playing = True
+        """        
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
-
+        """
 
     def game_over(self):
         #remise à 0

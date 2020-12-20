@@ -72,13 +72,19 @@ class Player(Base_Object):
     def move(self):
         # Walk
         #if self.onGround:
-        if self.game.pressed.get(pygame.K_RIGHT) and self.rect.x < 940:
+        if self.game.pressed.get(pygame.K_RIGHT):
             self.move_right()
-        elif self.game.pressed.get(pygame.K_LEFT) and self.rect.x > -30:
+        elif self.game.pressed.get(pygame.K_LEFT):
             self.move_left()
         else:
             if self.onGround:
                 self.stop()
+
+        if self.rect.x - self.game.cameraX > self.screen.get_width() * 3/4:
+            self.game.cameraX += 10
+
+        if self.rect.x - self.game.cameraX < self.screen.get_width() * 1/4 :
+            self.game.cameraX -= 10
 
         # Jump
         #if self.game.pressed.get(pygame.K_DOWN):

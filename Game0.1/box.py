@@ -12,6 +12,7 @@ class Box(pygame.sprite.Sprite):
 
 
     def show(self):
-        pygame.draw.rect(self.display, (120,0,0), self.rect)
-
-
+        pygame.draw.rect(self.display, (120,0,0), pygame.Rect(self.rect.x - self.game.cameraX,
+                                                              self.rect.y - self.game.cameraY,
+                                                              self.rect.width,
+                                                              self.rect.height))

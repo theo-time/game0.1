@@ -39,7 +39,7 @@ background = pygame.transform.scale(background,(1200,800))
 game = Game(screen)
 
 # création des boîtes
-box1 = Box(game,screen, 0, screen.get_height() - 50, screen.get_width(), 50)
+box1 = Box(game,screen, 0, screen.get_height() - 50, 10000, 50)
 box2 = Box(game,screen, 400, screen.get_height() - 230, screen.get_width(), 50)
 box3 = Box(game,screen, 50, screen.get_height() - 300, 200, 50)
 
@@ -50,6 +50,35 @@ running = True
 def Text(text, x, y):
     msg = font.render(text, True, pygame.Color('white'))
     screen.blit(msg, (x, y))
+
+
+mur = pygame.Surface((25, 25))
+mur.fill((0,0,0))
+
+niveau = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+]
+
+
+def dessiner_niveau(surface, niveau):
+    """Dessine le niveau sur la surface donnée.
+
+    Utilise la surface `mur` pour dessiner les cases de valeur 1
+    """
+    for j, ligne in enumerate(niveau):
+        for i, case in enumerate(ligne):
+            if case == 1:
+                surface.blit(mur, (i * 25, j * 25))
+
 
 #Boucle tant running = vrai
 while running:
@@ -76,6 +105,10 @@ while running:
         # Projectiles length display
         Text(str(game.player.all_projectiles), 50, 150)
 
+        # move camera
+        mousex, mouseY = pygame.mouse.get_pos()
+        #game.cameraX = mousex
+
     #verifier si le jeu n'a pas commencé puis ajouter l'ecran de bienvenu
     else:
         screen.blit(banner, banner_rect)
@@ -84,6 +117,9 @@ while running:
     # Afficher les boîtes
     for box in game.all_boxes :
         box.show()
+
+
+    dessiner_niveau(screen, niveau)
 
     #maj de l'écran
     pygame.display.flip()
@@ -173,3 +209,4 @@ def bloque_sur_collision(old_pos, new_pos, vx, vy, blocks):
 
     x, y = new_rect.topleft
     return x, y, vx, vy
+

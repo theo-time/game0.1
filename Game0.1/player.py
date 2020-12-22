@@ -80,10 +80,10 @@ class Player(Base_Object):
             if self.onGround:
                 self.stop()
 
-        if self.rect.x - self.game.cameraX > self.screen.get_width() * 2/3:
+        if self.rect.x - self.game.cameraX > self.screen.get_width() * 1/2 :
             self.game.cameraX += 10
 
-        if self.rect.x - self.game.cameraX < self.screen.get_width() * 1/3 :
+        if self.rect.x - self.game.cameraX < self.screen.get_width() * 1/2 :
             self.game.cameraX -= 10
 
         # Jump

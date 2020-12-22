@@ -9,9 +9,12 @@ class Projectile(pygame.sprite.Sprite):
         super().__init__()
         self.screen = screen
         self.game = game
-        self.speed = 50
-        self.velocity = direction * self.speed
         self.player = player
+
+        self.speed = 5
+        self.range = screen.get_width()
+        self.firing_point = self.player.rect.x
+        self.velocity = direction * self.speed
         self.image = pygame.image.load("assets/cheese.png")
         self.image = pygame.transform.scale(self.image, (40, 40))
         self.rect = self.image.get_rect()
@@ -43,9 +46,10 @@ class Projectile(pygame.sprite.Sprite):
             #infliger degats
             monster.Damage(self.player.attack, self.player)
 
-        #verifier et suppr si notre projectile n'est plus présent sur l'ecran
-        if self.rect.x > 1080 or self.rect.x < 0:
+        #verifier et suppr si notre projectile est à la fin de sa range
+        if abs(self.rect.x - self.firing_point) > self.range:
             self.Remove()
+
 
 
     def show(self):

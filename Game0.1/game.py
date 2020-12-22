@@ -33,14 +33,14 @@ class Game:
 
     def start(self):
         self.is_playing = True
-        """        
+
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
         self.spawn_monster()
-        """
+
 
     def game_over(self):
         #remise à 0
@@ -49,11 +49,6 @@ class Game:
         self.is_playing = False
 
     def Update(self, screen):
-        # appliquer image joueur
-        self.player.show()
-
-        # actualiser la barre de vie du joueur
-        self.player.Update_Health_Bar(screen)
 
         # recuperer les projectiles du joueur
         for Projectile in self.player.all_projectiles:
@@ -65,7 +60,8 @@ class Game:
             monster.Update_Health_Bar(screen)
 
         # appliquer l'ensemble des images de son groupe de projectiles
-        self.player.all_projectiles.draw(screen)
+        for projectile in self.player.all_projectiles:
+            projectile.show()
 
         # appliquer l'ensemble des images de mon grp de monstre
         for monster in self.all_monster:
@@ -161,6 +157,16 @@ class Game:
 
         x, y = new_rect.topleft
         return x, y, vx, vy, onGround
+
+    def render(self):
+        # appliquer image joueur
+        self.player.show()
+
+        # actualiser la barre de vie du joueur
+        self.player.Update_Health_Bar(self.screen)
+        # Afficher les boîtes
+        for box in self.all_boxes :
+            box.show()
 
     def spawn_monster(self):
         monster = Monster(self, self.screen)

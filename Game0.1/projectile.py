@@ -5,8 +5,10 @@ import pygame
 class Projectile(pygame.sprite.Sprite):
 
    #Realisation du constructeur de la class
-    def __init__(self, player, direction):
+    def __init__(self, screen, game, player, direction):
         super().__init__()
+        self.screen = screen
+        self.game = game
         self.speed = 50
         self.velocity = direction * self.speed
         self.player = player
@@ -45,3 +47,6 @@ class Projectile(pygame.sprite.Sprite):
         if self.rect.x > 1080 or self.rect.x < 0:
             self.Remove()
 
+
+    def show(self):
+        self.screen.blit(self.image, (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))

@@ -37,13 +37,13 @@ class Player(Base_Object):
             self.game.game_over()
 
     def Update_Health_Bar(self, surface):
-        pygame.draw.rect(surface,(60, 63, 60), [self.rect.x + 20, self.rect.y - 5, self.max_health, 5])
-        pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 20, self.rect.y - 5, self.health, 5])
+        pygame.draw.rect(surface,(60, 63, 60), [self.rect.x + 20 - self.game.cameraX, self.rect.y - 5 - self.game.cameraY, self.max_health, 5])
+        pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 20 - self.game.cameraX, self.rect.y - 5  - self.game.cameraY, self.health, 5])
 
     def lauch_projectile(self):
         #creation d'une nouvelle instance de la class projectile
         if self.isFiring:
-            self.all_projectiles.add(Projectile(self,self.direction))
+            self.all_projectiles.add(Projectile(self.screen, self.game, self,self.direction))
 
     def move_right(self):
         #if not self.game.Check_Collision(self, self.game.all_monster):
@@ -80,10 +80,10 @@ class Player(Base_Object):
             if self.onGround:
                 self.stop()
 
-        if self.rect.x - self.game.cameraX > self.screen.get_width() * 3/4:
+        if self.rect.x - self.game.cameraX > self.screen.get_width() * 2/3:
             self.game.cameraX += 10
 
-        if self.rect.x - self.game.cameraX < self.screen.get_width() * 1/4 :
+        if self.rect.x - self.game.cameraX < self.screen.get_width() * 1/3 :
             self.game.cameraX -= 10
 
         # Jump
@@ -91,6 +91,10 @@ class Player(Base_Object):
             #self.move_bottom()
         if self.game.pressed.get(pygame.K_UP) and self.onGround :
             self.move_up()
+
+        # Dies if falls
+        if self.rect.y > self.screen.get_height():
+            self.game.game_over()
 
     def collision_detection(self):
         #monster = self.game.Check_Collision(self, self.game.all_monster)

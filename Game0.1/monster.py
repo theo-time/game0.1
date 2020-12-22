@@ -58,8 +58,8 @@ class Monster(Base_Object):
 
         #définir la position de la jauge ainsi que la largeur/epaisseur
         #dessiner notre barre de vie
-        pygame.draw.rect(surface,(60, 63, 60), [self.rect.x + 10, self.rect.y - 15, self.max_health, 5])
-        pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 10, self.rect.y - 15, self.health, 5])
+        pygame.draw.rect(surface,(60, 63, 60), [self.rect.x + 10 - self.game.cameraX, self.rect.y - 15 - self.game.cameraY, self.max_health, 5])
+        pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 10 - self.game.cameraX, self.rect.y - 15 - self.game.cameraY, self.health, 5])
 
     def forward(self):
         # le deplacement ne sqe efait que ssi pas de collision mais il faut nécéssairement faire avec un groupe
@@ -85,11 +85,11 @@ class Monster(Base_Object):
 
         if self.direction == -1:  # If we are facing left
             print(self.game.walkCount, self.game.walkCount // 30)
-            self.screen.blit(self.walkLeft[self.game.walkCount // 30], (self.rect.x, self.rect.y))  # We integer divide walkCount by 3 to ensure each
+            self.screen.blit(self.walkLeft[self.game.walkCount // 30], (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))  # We integer divide walkCount by 3 to ensure each
             self.game.walkCount += 1  # image is shown 3 times every animation
         elif self.direction == 1:
             print(self.game.walkCount,self.game.walkCount // 30)
-            self.screen.blit(self.walkRight[self.game.walkCount // 30], (self.rect.x, self.rect.y))
+            self.screen.blit(self.walkRight[self.game.walkCount // 30], (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))
             self.game.walkCount += 1
         #else:
             #self.screen.blit(self.char, (x, y))  # If the character is standing still

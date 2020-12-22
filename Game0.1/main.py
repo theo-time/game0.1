@@ -93,6 +93,9 @@ while running:
         #declencher les instructions de la partie
         game.Update(screen)
 
+        # Affichage du jeu
+        game.render()
+
         # Handling and displaying time
         clock.tick(30)
         fps = font.render(str(int(clock.get_fps())), True, pygame.Color('white'))
@@ -114,9 +117,6 @@ while running:
         screen.blit(banner, banner_rect)
         screen.blit(play_button, play_button_rect)
 
-    # Afficher les boîtes
-    for box in game.all_boxes :
-        box.show()
 
 
     dessiner_niveau(screen, niveau)

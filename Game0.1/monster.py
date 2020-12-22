@@ -13,21 +13,23 @@ class Monster(Base_Object):
         self.image = pygame.image.load("assets/mechant.png")
         self.image = pygame.transform.scale(self.image, (90, 90))
         self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0,300)
+        self.rect.y = 300
         self.velocity = random.randint(1, 4)
         self.direction = 1
         self.spawn()
 
 
-        self.walkLeft = [pygame.image.load('assets/Zombie/Zombie1/animation/Walk1.png'),
+        self.walkRight = [pygame.image.load('assets/Zombie/Zombie1/animation/Walk1.png'),
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk2.png'),
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk3.png'),
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk4.png'),
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk5.png'),
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk6.png')]
 
-        self.walkRight = [0,0,0,0,0,0]
+        self.walkLeft = [0,0,0,0,0,0]
         for i in range(0,6):
-            self.walkRight[i] = pygame.transform.flip(self.walkLeft[i], True, False)
+            self.walkLeft[i] = pygame.transform.flip(self.walkRight[i], True, False)
 
         self.char = pygame.image.load('assets/Zombie/Zombie1/animation/Idle1.png')
 
@@ -61,10 +63,17 @@ class Monster(Base_Object):
         pygame.draw.rect(surface,(60, 63, 60), [self.rect.x + 10 - self.game.cameraX, self.rect.y - 15 - self.game.cameraY, self.max_health, 5])
         pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 10 - self.game.cameraX, self.rect.y - 15 - self.game.cameraY, self.health, 5])
 
+    def orient(self):
+        # Orients itself toward the player
+        if self.game.player.rect.x - self.rect.x > 0:
+            self.direction = 1
+        else:
+            self.direction = -1
+
     def forward(self):
         # le deplacement ne sqe efait que ssi pas de collision mais il faut nécéssairement faire avec un groupe
         if not self.game.Check_Collision(self, self.game.all_players):
-            self.rect.x -= self.velocity
+            self.rect.x += self.velocity * self.direction
         # si le monstre est en collision avec le joueur
         else:
         # on inflige les dégats au joueur
@@ -75,10 +84,6 @@ class Monster(Base_Object):
         # We have 6 images for our walking animation, I want to show the same image for 3 frames
         # so I use the number 18 as an upper bound for walkCount  images shown
         # 3 times each animation.
-        if self.speed.x < 0:
-            self.direction = -1;
-        else:
-            self.direction = 1
 
         if self.game.walkCount + 1 >= 180:
             self.game.walkCount = 0

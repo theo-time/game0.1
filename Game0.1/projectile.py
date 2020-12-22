@@ -11,7 +11,7 @@ class Projectile(pygame.sprite.Sprite):
         self.game = game
         self.player = player
 
-        self.speed = 5
+        self.speed = 50
         self.range = screen.get_width()
         self.firing_point = self.player.rect.x
         self.velocity = direction * self.speed

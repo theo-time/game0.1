@@ -56,16 +56,14 @@ class Game:
         #print("projectiles length : ", len(self.player.all_projectiles))
         # recupérer les monstres de notre jeu
         for monster in self.all_monster:
+            monster.orient()
             monster.forward()
             monster.Update_Health_Bar(screen)
+            monster.show()
 
         # appliquer l'ensemble des images de son groupe de projectiles
         for projectile in self.player.all_projectiles:
             projectile.show()
-
-        # appliquer l'ensemble des images de mon grp de monstre
-        for monster in self.all_monster:
-            monster.show()
 
         self.player.move()
         self.player.lauch_projectile()

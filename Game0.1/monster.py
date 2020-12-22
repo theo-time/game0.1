@@ -89,11 +89,11 @@ class Monster(Base_Object):
             self.game.walkCount = 0
 
         if self.direction == -1:  # If we are facing left
-            print(self.game.walkCount, self.game.walkCount // 30)
+
             self.screen.blit(self.walkLeft[self.game.walkCount // 30], (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))  # We integer divide walkCount by 3 to ensure each
             self.game.walkCount += 1  # image is shown 3 times every animation
         elif self.direction == 1:
-            print(self.game.walkCount,self.game.walkCount // 30)
+
             self.screen.blit(self.walkRight[self.game.walkCount // 30], (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))
             self.game.walkCount += 1
         #else:

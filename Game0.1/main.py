@@ -98,15 +98,19 @@ while running:
 
         # Handling and displaying time
         clock.tick(30)
-        fps = font.render(str(int(clock.get_fps())), True, pygame.Color('white'))
-        screen.blit(fps, (50, 50))
         game.time += 1
 
+        # Time Display
+        Text("FPS : " + str(int(clock.get_fps())), 50, 50)
+
         # Kills display
-        Text(str(game.player.kills), 50, 150)
+        Text("Kills : " + str(game.player.kills), 50, 100)
 
         # Projectiles length display
-        Text(str(game.player.all_projectiles), 50, 150)
+        Text(" Projectiles :" + str(len(game.player.all_projectiles)), 50, 150)
+
+        # Number of Zombies
+        Text("Zombies : " + str(len(game.all_monster)), 50, 200)
 
         # move camera
         mousex, mouseY = pygame.mouse.get_pos()
@@ -119,7 +123,7 @@ while running:
 
 
 
-    dessiner_niveau(screen, niveau)
+    #dessiner_niveau(screen, niveau)
 
     #maj de l'écran
     pygame.display.flip()

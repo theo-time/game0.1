@@ -41,8 +41,8 @@ class Player(Base_Object):
         pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 20 - self.game.cameraX, self.rect.y - 5  - self.game.cameraY, self.health, 5])
 
     def lauch_projectile(self):
-        #creation d'une nouvelle instance de la class projectile
-        if self.isFiring:
+        # lancement d'un projectile toute les x frames
+        if self.isFiring and self.game.time % 3 == 0:
             self.all_projectiles.add(Projectile(self.screen, self.game, self,self.direction))
 
     def move_right(self):

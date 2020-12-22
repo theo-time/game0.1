@@ -38,7 +38,6 @@ class Base_Object(pygame.sprite.Sprite):
 
         # Record past rect
         self.old_rect = self.rect.copy()
-        print("past rect", self.old_rect, self.game.time)
 
         # Update position
         self.rect.x += self.speed.x
@@ -54,27 +53,7 @@ class Base_Object(pygame.sprite.Sprite):
         self.speed.x = redirection[2]
         self.speed.y = redirection[3]
 
-        #collide_obj = self.collision_detection()
-
-        # Prevent colliding
-        #if collide_obj:
-        #    print(collide_obj.rect, self.past_rect, self.rect, self.game.time)
-#
- #           dy_correction, dx_correction = self.game.compute_penetration(collide_obj.rect, self.past_rect, self.rect)
-  #          self.rect.top += dy_correction
-   ##         self.rect.left += dx_correction
-     #       print(dx_correction)
-            #breakpoint()
-            #pygame.draw.rect(self.screen, (0,0,0), self.rect)
-
         self.onGround = redirection[4]
-
-        #print("*******************")
-        #print("POS :",self.rect.x,self.rect.y)
-        #print("SPEED :",self.speed.x,self.speed.y)
-        #print("ACC :",self.acc.x,self.acc.y)
-        #print("OnGround : ", self.onGround)
-        #print("*******************")
 
         # Reset acceleration
         self.acc.x = 0

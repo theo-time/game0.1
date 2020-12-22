@@ -53,7 +53,11 @@ class Game:
         # recuperer les projectiles du joueur
         for Projectile in self.player.all_projectiles:
             Projectile.Move()
-        #print("projectiles length : ", len(self.player.all_projectiles))
+
+        # Each 50 frame, create new Zomb
+        if self.time % 50 == 0:
+            self.spawn_monster()
+
         # recupérer les monstres de notre jeu
         for monster in self.all_monster:
             monster.orient()

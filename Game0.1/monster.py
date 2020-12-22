@@ -18,7 +18,9 @@ class Monster(Base_Object):
         self.velocity = random.randint(1, 4)
         self.direction = 1
         self.spawn()
-
+        self.clock = 0
+        self.walkCount = 0
+        self.image_number = 0
 
         self.walkRight = [pygame.image.load('assets/Zombie/Zombie1/animation/Walk1.png'),
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk2.png'),
@@ -26,6 +28,7 @@ class Monster(Base_Object):
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk4.png'),
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk5.png'),
                           pygame.image.load('assets/Zombie/Zombie1/animation/Walk6.png')]
+
 
         self.walkLeft = [0,0,0,0,0,0]
         for i in range(0,6):
@@ -84,17 +87,24 @@ class Monster(Base_Object):
         # We have 6 images for our walking animation, I want to show the same image for 3 frames
         # so I use the number 18 as an upper bound for walkCount  images shown
         # 3 times each animation.
+        self.clock += 1
 
-        if self.game.walkCount + 1 >= 180:
-            self.game.walkCount = 0
+        # Each 10 frames, change image
+        if self.clock % 10 == 0:
+            self.walkCount += 1
+
+        # reset counter
+        if self.walkCount > 4:
+            self.walkCount = 0
+
 
         if self.direction == -1:  # If we are facing left
 
-            self.screen.blit(self.walkLeft[self.game.walkCount // 30], (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))  # We integer divide walkCount by 3 to ensure each
+            self.screen.blit(self.walkLeft[self.walkCount], (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))  # We integer divide walkCount by 3 to ensure each
             self.game.walkCount += 1  # image is shown 3 times every animation
         elif self.direction == 1:
 
-            self.screen.blit(self.walkRight[self.game.walkCount // 30], (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))
+            self.screen.blit(self.walkRight[self.walkCount], (self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))
             self.game.walkCount += 1
         #else:
             #self.screen.blit(self.char, (x, y))  # If the character is standing still

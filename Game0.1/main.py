@@ -107,7 +107,7 @@ while running:
         Text("Kills : " + str(game.player.kills), 50, 100)
 
         # Projectiles length display
-        Text(" Projectiles :" + str(len(game.player.all_projectiles)), 50, 150)
+        Text(" Projectiles :" + str(len(game.player.weapon.all_projectiles)), 50, 150)
 
         # Number of Zombies
         Text("Zombies : " + str(len(game.all_monster)), 50, 200)

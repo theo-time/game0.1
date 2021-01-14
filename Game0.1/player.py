@@ -21,12 +21,13 @@ class Player(Base_Object):
         self.direction = 1
 
         # Attack
-        self.attack = 10
-        self.all_projectiles = pygame.sprite.Group()
         self.isFiring = False
 
         # Stats
         self.kills = 0
+
+        # initialise on gun
+        self.weapon = Weapon(game, screen, self, "gun", 30, 30, 100)
 
 
     def Damage(self, amount):
@@ -40,10 +41,9 @@ class Player(Base_Object):
         pygame.draw.rect(surface,(60, 63, 60), [self.rect.x + 20 - self.game.cameraX, self.rect.y - 5 - self.game.cameraY, self.max_health, 5])
         pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 20 - self.game.cameraX, self.rect.y - 5  - self.game.cameraY, self.health, 5])
 
-    def lauch_projectile(self):
+    def attack(self):
         # lancement d'un projectile toute les x frames
-        if self.isFiring and self.game.time % 3 == 0:
-            self.all_projectiles.add(Projectile(self.screen, self.game, self,self.direction))
+        self.weapon.fire()
 
     def move_right(self):
         #if not self.game.Check_Collision(self, self.game.all_monster):
@@ -106,3 +106,31 @@ class Player(Base_Object):
 
     def show(self):
         self.screen.blit(self.image, ( self.rect.x - self.game.cameraX, self.rect.y - self.game.cameraY))
+
+class Weapon():
+
+    def __init__(self, game, screen, player, name, damage, rateOfFire, range):
+        self.game = game
+        self.screen = screen
+        self.player = player
+        self.name = name
+        self.damage = damage
+        self.rateOfFire = rateOfFire
+        self.range = range
+
+        self.clock = 0
+
+        self.all_projectiles = pygame.sprite.Group()
+
+    def fire(self):
+        if(self.player.isFiring):
+            print(self.clock)
+            if(self.clock % self.rateOfFire == 0):
+                self.game.all_projectiles.add(Projectile(self.screen, self.game, self.player, self.player.direction, self.damage))
+
+            self.clock += 1
+        else:
+            self.clock = 0# TODO : a bit moins bourrin svp
+            print("reInit")
+
+        # TODO: make all classes inherit from one objects which bears the reference to screen and game

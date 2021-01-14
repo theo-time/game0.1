@@ -5,15 +5,17 @@ import pygame
 class Projectile(pygame.sprite.Sprite):
 
    #Realisation du constructeur de la class
-    def __init__(self, screen, game, player, direction):
+    def __init__(self, screen, game, player, direction, damage):
         super().__init__()
         self.screen = screen
         self.game = game
         self.player = player
 
         self.speed = 50
+        self.damage = damage
+
         self.range = screen.get_width()
-        self.firing_point = self.player.rect.x
+        self.firing_point = player.rect.x
         self.velocity = direction * self.speed
         self.image = pygame.image.load("assets/cheese.png")
         self.image = pygame.transform.scale(self.image, (40, 40))
@@ -32,7 +34,7 @@ class Projectile(pygame.sprite.Sprite):
     #methode pour suppr les projectiles
 
     def Remove(self):
-        self.player.all_projectiles.remove(self)
+        self.game.all_projectiles.remove(self)
 
     #méthode pour le mouvement du projectile
 
@@ -44,7 +46,7 @@ class Projectile(pygame.sprite.Sprite):
         for monster in self.player.game.Check_Collision(self, self.player.game.all_monster):
             self.Remove()
             #infliger degats
-            monster.Damage(self.player.attack, self.player)
+            monster.Damage(self.damage, self.player)
 
         #verifier et suppr si notre projectile est à la fin de sa range
         if abs(self.rect.x - self.firing_point) > self.range:

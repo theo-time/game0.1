@@ -25,7 +25,7 @@ class Game:
 
         #groupe de monstre
         self.all_monster = pygame.sprite.Group()
-
+        self.all_projectiles = pygame.sprite.Group()
 
         self.pressed = {}
         self.walkCount = 0
@@ -51,26 +51,27 @@ class Game:
     def Update(self, screen):
 
         # recuperer les projectiles du joueur
-        for Projectile in self.player.all_projectiles:
+        for Projectile in self.all_projectiles:
             Projectile.Move()
 
         # Each 50 frame, create new Zomb
         if self.time % 50 == 0:
             self.spawn_monster()
 
-        # recupérer les monstres de notre jeu
+        # Movements and actions
+
         for monster in self.all_monster:
             monster.orient()
             monster.forward()
             monster.Update_Health_Bar(screen)
             monster.show()
 
-        # appliquer l'ensemble des images de son groupe de projectiles
-        for projectile in self.player.all_projectiles:
-            projectile.show()
-
         self.player.move()
-        self.player.lauch_projectile()
+        self.player.attack()
+
+        # appliquer l'ensemble des images de son groupe de projectiles
+        for projectile in self.all_projectiles:
+            projectile.show()
 
         #Appliquer la gravité
         for object in self.all_objects:
